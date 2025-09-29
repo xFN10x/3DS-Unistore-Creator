@@ -1,5 +1,7 @@
 plugins {
     application
+    id("com.gradleup.shadow") version "9.2.2"
+    id("org.panteleyev.jpackageplugin") version "1.7.6"
 }
 
 repositories {
@@ -12,6 +14,9 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     implementation(libs.guava)
+
+    implementation("com.formdev:flatlaf:3.6.1")
+    implementation("commons-io:commons-io:2.19.0")
 }
 
 java {
@@ -26,4 +31,12 @@ application {
 
 tasks.named<Test>("test") {
     useJUnitPlatform()
+}
+
+val version = "1.0"
+
+tasks.shadowJar {
+  archiveBaseName = "3dsUnistoreCreator"
+  archiveVersion = version
+  destinationDirectory = layout.buildDirectory.dir("builtJars")
 }
